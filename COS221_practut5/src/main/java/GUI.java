@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 public class GUI extends javax.swing.JFrame 
@@ -328,6 +329,11 @@ public class GUI extends javax.swing.JFrame
         Notifications.setBackground(new java.awt.Color(204, 255, 255));
 
         jButton1.setText("Modify");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         CustomerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -564,6 +570,17 @@ public class GUI extends javax.swing.JFrame
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_DroppedSubChkActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Customers c = null;
+        try {
+            c = new Customers();
+            c.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } catch (IOException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        c.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     public static void main(String args[]) throws ClassNotFoundException, SQLException
     {
