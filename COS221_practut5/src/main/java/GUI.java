@@ -37,6 +37,7 @@ public class GUI extends javax.swing.JFrame
         populateStaffTable();
         populateReportTable();
         populateFilmsTable();
+        populateCustomerTable();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -68,7 +69,11 @@ public class GUI extends javax.swing.JFrame
         jScrollPane2 = new javax.swing.JScrollPane();
         ReportTable = new javax.swing.JTable();
         Notifications = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        CustomerTable = new javax.swing.JTable();
+        SearchCustomerField = new javax.swing.JTextField();
+        SearchCustomersBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +84,14 @@ public class GUI extends javax.swing.JFrame
 
         jPanel3.setBackground(new java.awt.Color(204, 255, 255));
 
+        StaffTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         jScrollPane1.setViewportView(StaffTable);
 
         chkFirstName.setText("FirstName");
@@ -313,23 +326,58 @@ public class GUI extends javax.swing.JFrame
 
         Notifications.setBackground(new java.awt.Color(204, 255, 255));
 
-        jLabel1.setText("jLabel1");
+        jButton1.setText("Modify");
+
+        CustomerTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(CustomerTable);
+
+        SearchCustomersBtn.setText("Search");
+        SearchCustomersBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchCustomersBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout NotificationsLayout = new javax.swing.GroupLayout(Notifications);
         Notifications.setLayout(NotificationsLayout);
         NotificationsLayout.setHorizontalGroup(
             NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotificationsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(42, 42, 42))
             .addGroup(NotificationsLayout.createSequentialGroup()
-                .addGap(254, 254, 254)
-                .addComponent(jLabel1)
-                .addContainerGap(471, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(NotificationsLayout.createSequentialGroup()
+                        .addComponent(SearchCustomerField, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(SearchCustomersBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         NotificationsLayout.setVerticalGroup(
             NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(NotificationsLayout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jLabel1)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SearchCustomerField, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SearchCustomersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Notifications", Notifications);
@@ -479,6 +527,16 @@ public class GUI extends javax.swing.JFrame
         f.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_AddFilmsBtnActionPerformed
+
+    private void SearchCustomersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchCustomersBtnActionPerformed
+        try {
+            populateCustomerTable();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_SearchCustomersBtnActionPerformed
     
     public static void main(String args[]) throws ClassNotFoundException, SQLException
     {
@@ -500,11 +558,14 @@ public class GUI extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton AddFilmsBtn;
+    private javax.swing.JTable CustomerTable;
     private javax.swing.JPanel Film;
     private javax.swing.JTable FilmsTable;
     private javax.swing.JPanel Notifications;
     private javax.swing.JPanel Report;
     private javax.swing.JTable ReportTable;
+    private javax.swing.JTextField SearchCustomerField;
+    private javax.swing.JButton SearchCustomersBtn;
     private javax.swing.JTextField SearchFieldFilms;
     private javax.swing.JButton SearchFilmsBtn;
     private javax.swing.JPanel Staff;
@@ -518,13 +579,14 @@ public class GUI extends javax.swing.JFrame
     private javax.swing.JCheckBox chkPhone;
     private javax.swing.JCheckBox chkPostal;
     private javax.swing.JCheckBox chkStore;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 
@@ -727,6 +789,47 @@ public class GUI extends javax.swing.JFrame
         
         DefaultTableModel model = new DefaultTableModel(data,columns);
         FilmsTable.setModel(model);
+    }
+    
+    
+    private void populateCustomerTable() throws ClassNotFoundException, SQLException
+    {
+        Class.forName("org.mariadb.jdbc.Driver");
+        String url = protocol+":mariadb://"+host+":"+port+"/"+dbName;
+       
+        Connection connection = DriverManager.getConnection(url, username, password );
+        
+        Statement statement = connection.createStatement();
+        String sql = "SELECT store_id,first_name,last_name,email,address,district,phone,active FROM `customer` " +
+        "INNER JOIN address ON customer.address_id = address.address_id " +
+        "WHERE active = 0 "
+                + "AND (first_name LIKE '%"+SearchCustomerField.getText()+"%' "
+                + "OR last_name LIKE '%"+SearchCustomerField.getText()+"%' "
+                + "OR email LIKE '%"+SearchCustomerField.getText()+"%' "
+                + "OR address LIKE '%"+SearchCustomerField.getText()+"%' "
+                + "OR district LIKE '%"+SearchCustomerField.getText()+"%' "
+                + "OR phone LIKE '%"+SearchCustomerField.getText()+"%' )"
+                + " LIMIT 1000";
+        
+        System.out.println("\n\n\n"+sql+"\n\n\n");
+        ResultSet resultSet = statement.executeQuery(sql);
+        String columns[] = {"Store" ,"FirstName" , "LastName" , "Email" , "address", "District" , "Phone" , "Subscription"};
+        Object[][] data = new Object[1000][8];
+        int rows = 0;
+        while(resultSet.next())
+        {
+            data[rows][0] = resultSet.getString("store_id");
+            data[rows][1] = resultSet.getString("first_name");
+            data[rows][2] = resultSet.getString("last_name");
+            data[rows][3] = resultSet.getString("email");
+            data[rows][4] = resultSet.getString("address");
+            data[rows][5] = resultSet.getString("district");
+            data[rows][6] = resultSet.getString("phone");
+            data[rows][7] = resultSet.getString("active");
+            rows++;
+        }
+        DefaultTableModel model = new DefaultTableModel(data,columns);
+        CustomerTable.setModel(model);
     }
 }
 
