@@ -74,6 +74,7 @@ public class GUI extends javax.swing.JFrame
         CustomerTable = new javax.swing.JTable();
         SearchCustomerField = new javax.swing.JTextField();
         SearchCustomersBtn = new javax.swing.JButton();
+        DroppedSubChk = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -348,23 +349,33 @@ public class GUI extends javax.swing.JFrame
             }
         });
 
+        DroppedSubChk.setText("Dropped Subscription");
+        DroppedSubChk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DroppedSubChkActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout NotificationsLayout = new javax.swing.GroupLayout(Notifications);
         Notifications.setLayout(NotificationsLayout);
         NotificationsLayout.setHorizontalGroup(
             NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotificationsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(42, 42, 42))
             .addGroup(NotificationsLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(NotificationsLayout.createSequentialGroup()
-                        .addComponent(SearchCustomerField, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(SearchCustomersBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addComponent(DroppedSubChk)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(42, 42, 42))
+                    .addGroup(NotificationsLayout.createSequentialGroup()
+                        .addGroup(NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(NotificationsLayout.createSequentialGroup()
+                                .addComponent(SearchCustomerField, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(SearchCustomersBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(29, Short.MAX_VALUE))))
         );
         NotificationsLayout.setVerticalGroup(
             NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,9 +386,15 @@ public class GUI extends javax.swing.JFrame
                     .addComponent(SearchCustomersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGroup(NotificationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NotificationsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addContainerGap())
+                    .addGroup(NotificationsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(DroppedSubChk)
+                        .addContainerGap(13, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("Notifications", Notifications);
@@ -537,6 +554,16 @@ public class GUI extends javax.swing.JFrame
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_SearchCustomersBtnActionPerformed
+
+    private void DroppedSubChkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DroppedSubChkActionPerformed
+        try {
+            populateCustomerTable();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_DroppedSubChkActionPerformed
     
     public static void main(String args[]) throws ClassNotFoundException, SQLException
     {
@@ -559,6 +586,7 @@ public class GUI extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton AddFilmsBtn;
     private javax.swing.JTable CustomerTable;
+    private javax.swing.JCheckBox DroppedSubChk;
     private javax.swing.JPanel Film;
     private javax.swing.JTable FilmsTable;
     private javax.swing.JPanel Notifications;
@@ -801,9 +829,15 @@ public class GUI extends javax.swing.JFrame
         
         Statement statement = connection.createStatement();
         String sql = "SELECT store_id,first_name,last_name,email,address,district,phone,active FROM `customer` " +
-        "INNER JOIN address ON customer.address_id = address.address_id " +
-        "WHERE active = 0 "
-                + "AND (first_name LIKE '%"+SearchCustomerField.getText()+"%' "
+        "INNER JOIN address ON customer.address_id = address.address_id ";
+        
+        if(DroppedSubChk.isSelected())
+        {
+            sql+="WHERE active = 0 ";
+        }
+
+                
+        sql +="AND (first_name LIKE '%"+SearchCustomerField.getText()+"%' "
                 + "OR last_name LIKE '%"+SearchCustomerField.getText()+"%' "
                 + "OR email LIKE '%"+SearchCustomerField.getText()+"%' "
                 + "OR address LIKE '%"+SearchCustomerField.getText()+"%' "
@@ -811,7 +845,6 @@ public class GUI extends javax.swing.JFrame
                 + "OR phone LIKE '%"+SearchCustomerField.getText()+"%' )"
                 + " LIMIT 1000";
         
-        System.out.println("\n\n\n"+sql+"\n\n\n");
         ResultSet resultSet = statement.executeQuery(sql);
         String columns[] = {"Store" ,"FirstName" , "LastName" , "Email" , "address", "District" , "Phone" , "Subscription"};
         Object[][] data = new Object[1000][8];
